@@ -16,5 +16,5 @@ int main(void)
 	strcat(result, str2);
 
 	fprintf(stderr, "%s\n", result);
-	return (0);
+	return (1);
 }
