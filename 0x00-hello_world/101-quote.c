@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 /**
  * main -Entry point
@@ -7,6 +8,13 @@
  */
 int main(void)
 {
-	fprintf(stderr, "%s\n", "and that piece of art is useful\" - Dora Korpar, 2015-10-19");
+	char str1[40] = "and that piece of art is useful\"";
+	char str2[40] = " - Dora Korpar, 2015-10-19";
+	char result[80];
+
+	strcpy(result, str1);
+	strcat(result, str2);
+
+	fprintf(stderr, "%s\n", result);
 	return (0);
 }
