@@ -1,10 +1,13 @@
 #include <stdio.h>
 
 /**
- * main - code start
+ * main - Entry point of the program
  *
- * write letter a-z in lowercase
- * return - 0 success
+ * This function generates an alphabet lowercase a-z,
+ * using putchar only and not more than twice.
+ * and print the result.
+ *
+ * Return: 0 on success
  */
 int main(void)
 {
