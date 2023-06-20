@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-/** main - code start
+/**
+ * main - code start
  *
  * write letter a-z in lowercase
  * return - 0 success
@@ -13,7 +14,6 @@ int main(void)
 	{
 		putchar(letter);
 	};
-	
 	putchar('\n');
 	return (0);
 }
