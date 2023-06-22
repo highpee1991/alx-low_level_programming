@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-
 /**
  * main - Entry point of the program
  *
@@ -9,7 +8,8 @@
  * print the first 2 number sepeately
  * using for loop generate and print other numbers
  * add new line to the iteration
- * return 0 success
+ *
+ * Return: 0 success
  */
 int main(void)
 {
@@ -17,11 +17,14 @@ int main(void)
 	int prev = 1;
 	int curr = 2;
 	int i;
+	int next;
 
-	printf("%d, %d", prev, curr);
+	printf("%d", curr);
 	for (i = 3; i < fab; i++)
 	{
-		int next = prev + curr;
+		printf(", ");
+
+		next = prev + curr;
 
 		printf("%d", next);
 		prev = curr;
