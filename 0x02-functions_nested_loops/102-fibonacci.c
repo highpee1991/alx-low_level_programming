@@ -22,7 +22,7 @@ int main(void)
 	printf("%lu", prev);
 	printf(", %lu", curr);
 
-	for (i = 3; i < fab; i++)
+	for (i = 3; i <= fab; i++)
 	{
 		next = prev + curr;
 
