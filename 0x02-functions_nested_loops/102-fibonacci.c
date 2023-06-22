@@ -14,19 +14,19 @@
 int main(void)
 {
 	int fab = 50;
-	int prev = 1;
-	int curr = 2;
+	unsigned long prev = 1;
+	unsigned long curr = 2;
 	int i;
-	int next;
+	unsigned long next;
 
-	printf("%d", curr);
+	printf("%lu", prev);
+	printf(", %lu", curr);
+
 	for (i = 3; i < fab; i++)
 	{
-		printf(", ");
-
 		next = prev + curr;
 
-		printf("%d", next);
+		printf(", %lu", next);
 		prev = curr;
 		curr = next;
 	}
