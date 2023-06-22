@@ -10,18 +10,20 @@
  */
 int main(void)
 {
-	unsigned long fabi[98];
+	unsigned long num1 = 1;
+	unsigned long num2 = 2;
+	unsigned long next;
 	unsigned int count;
 
-	fabi[0] = 1;
-	fabi[1] = 2;
 
-	printf("%lu, %lu", fabi[0], fabi[1]);
+	printf("%lu, %lu", num1, num2);
 
 	for (count = 3; count <= 98; count++)
 	{
-		fabi[count] = fabi[count - 1] + fabi[count - 2];
-		printf(", %lu", fabi[count]);
+		next = num1 + num2;
+		printf(", %lu", next);
+		num1 = num2;
+		num2 = next;
 	}
 	printf("\n");
 	return (0);
