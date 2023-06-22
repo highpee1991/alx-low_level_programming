@@ -10,17 +10,17 @@
  */
 int main(void)
 {
-	unsigned int counter;
-	unsigned int num1 = 1;
-	unsigned int num2 = 2;
-	unsigned int next;
+	unsigned long counter;
+	unsigned long num1 = 1;
+	unsigned long num2 = 2;
+	unsigned long next;
 
-	printf("%u, %u", num1, num2);
+	printf("%lu, %lu", num1, num2);
 
 	for (counter = 3; counter <= 98; counter++)
 	{
 		next = num1 + num2;
-		printf(", %u", next);
+		printf(", %lu", next);
 
 		num1 = num2;
 		num2 = next;
