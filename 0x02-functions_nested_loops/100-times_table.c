@@ -3,13 +3,12 @@
 #include <stdlib.h>
 
 /**
- * print_times_table - Entry point of the program
+ * print_times_table - Generates a times table starting from n
  *
- * This function generates time table using n aguement,
- * using putchar.
- * n is the starting point for the program.
+ * This function generates a times table starting from the given number n.
+ * The times table is printed using putchar.
  *
- * Return: 0 on success
+ * @n: Starting number for the times table
  */
 void print_times_table(int n)
 {
@@ -27,7 +26,7 @@ void print_times_table(int n)
 				printf("%*d", len, result);
 
 				if (j != n)
-					printf(", ");
+					printf(",");
 			}
 			printf("\n");
 		}
