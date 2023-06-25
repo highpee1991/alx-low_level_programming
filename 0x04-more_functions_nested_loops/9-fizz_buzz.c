@@ -9,7 +9,7 @@
  * multiples of 5 with "Buzz", and multiples of both
  *  and 5 with "FizzBuzz".
  */
-void fizz_buzz(void)
+int main(void)
 {
 	int i;
 
@@ -17,7 +17,7 @@ void fizz_buzz(void)
 	{
 		if (i % 15 == 0)
 		{
-                        printf("FizzBuzz ");
+			printf("FizzBuzz ");
 		}
 		else if (i % 3 == 0)
 		{
@@ -25,12 +25,14 @@ void fizz_buzz(void)
 		}
 		else if (i % 5 == 0)
 		{
-			printf("Buzz ");}
-
+			printf("Buzz ");
+		}
 		else
 		{
 			printf("%d ", i);
 		}
 	}
 	printf("\n");
+
+	return (0);
 }
