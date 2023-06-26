@@ -7,16 +7,15 @@
  */
 int main(void)
 {
-	long i, maxfactor = 1;
+	long i, maxfactor;
 	long number = 612852475143;
-	long squre = sqrt(number);
+	double squre = sqrt(number);
 
-	for (i = 2; i <= squre; i++)
+	for (i = 1; i <= squre; i++)
 	{
 		if (number % i == 0)
 		{
 			maxfactor = number / i;
-			break;
 		}
 	}
 	printf("%ld\n", maxfactor);
