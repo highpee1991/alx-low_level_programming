@@ -1,7 +1,8 @@
 #include <string.h>
 
 /**
- * _strcpy - Copies a string from source to destination up to a maximum of n characters.
+ * _strncpy - Copies a string from source to
+ * destination up to a maximum of n characters.
  * @dest: The destination string.
  * @src: The source string.
  * @n: The maximum number of characters to copy.
