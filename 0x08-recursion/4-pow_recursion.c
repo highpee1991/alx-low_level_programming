@@ -7,16 +7,18 @@
  *
  * Return: The value of x raised to the power of y.
  *
- * Description: This function calculates the value of x raised to the power of y
- * using recursive calls. If y is negative, it returns -1. Otherwise, it uses the
+ * Description: This function calculates the value of x raised to the power
+ * of y
+ * using recursive calls. If y is negative, it returns -1. Otherwise, it
+ * uses the
  * pow function from the math library to calculate the result and returns it.
  */
 int _pow_recursion(int x, int y)
 {
-	double res = pow(x, y);
-
 	if (y < 0)
 		return (-1);
 
-	return (res);
+	if (y)
+		return (x * _pow_recursion(x, y - 1));
+	return (1);
 }
