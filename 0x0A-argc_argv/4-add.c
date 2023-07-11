@@ -19,15 +19,37 @@ int main(int argc, char *argv[])
 	{
 		for (i = 1; i < argc; i++)
 		{
-			int digit = atoi(argv[i]);
+			int j;
+			int isNumber = 1;
+			int length = 0;
 
-			if (isdigit(*argv[i]) && digit >= 0)
+			for (j = 0; argv[i][j] != '\0'; j++)
 			{
-				sum += digit;
+				if (!isdigit(argv[i][j]) && (argv[i][j] != '-' || j != 0))
+				{
+					isNumber = 0;
+					break;
+				}
+				length++;
+			}
+
+			if (isNumber && length > 0)
+			{
+				int digit = atoi(argv[i]);
+				
+				if (digit >= 0)
+				{
+					sum += digit;
+				}
+				else
+				{
+					printf("Error: Negative number not allowed\n");
+					return (1);
+				}
 			}
 			else
 			{
-				printf("Error\n");
+				printf("Error: Not a valid number\n");
 				return (1);
 			}
 		}
@@ -35,7 +57,9 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		printf("0\n");
+		printf("Error: Insufficient arguments\n");
+		return 1;
 	}
-	return (0);
+	return 0;
 }
+
