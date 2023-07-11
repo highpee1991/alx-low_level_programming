@@ -3,12 +3,19 @@
 #include <stdlib.h>
 #include "main.h"
 
+/**
+ * main - Entry point of the program
+ * @argc: The number of command line arguments
+ * @argv: An array of strings containing the arguments
+ *
+ * Return: 0 on success, 1 on error
+ */
 int main(int argc, char *argv[])
 {
 	int i;
 	int sum = 0;
 
-	if (argc > 2)
+	if (argc > 1)
 	{
 		for (i = 1; i < argc; i++)
 		{
@@ -18,10 +25,10 @@ int main(int argc, char *argv[])
 			{
 				sum += digit;
 			}
-			else 
+			else
 			{
 				printf("Error\n");
-                                return (1);
+				return (1);
 			}
 		}
 		printf("%d\n", sum);
