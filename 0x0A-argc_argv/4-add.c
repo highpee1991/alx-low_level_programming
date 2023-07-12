@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include "main.h"
@@ -15,18 +16,20 @@ int main(int argc, char *argv[])
 	int i;
 	int sum = 0;
 	int digit;
+	char *e;
 
 	if (argc > 1)
 	{
 		for (i = 1; i < argc; i++)
 		{
-			int j;
+			unsigned int j;
+			e = argv[i];
 
-			for (j = 0; argv[i][j] == '\0'; j++)
+			for (j = 0; j < strlen(e); j++)
 			{
 				if (!isdigit(argv[i][j]))
 				{
-					printf("Error");
+					printf("Error\n");
 					return (1);
 				}
 			}
