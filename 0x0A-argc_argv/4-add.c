@@ -14,12 +14,23 @@ int main(int argc, char *argv[])
 {
 	int i;
 	int sum = 0;
+	int digit;
 
-	if (argc > 2)
+	if (argc > 1)
 	{
 		for (i = 1; i < argc; i++)
 		{
-			int digit = atoi(argv[i]);
+			int j;
+
+			for (j = 0; argv[i][j] == '\0'; j++)
+			{
+				if (!isdigit(argv[i][j]))
+				{
+					printf("Error");
+					return (1);
+				}
+			}
+			digit = atoi(argv[i]);
 
 			if (isdigit(*argv[i]) && digit >= 0)
 			{
