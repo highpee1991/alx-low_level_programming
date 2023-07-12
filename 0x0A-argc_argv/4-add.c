@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
 		for (i = 1; i < argc; i++)
 		{
 			unsigned int j;
+
 			e = argv[i];
 
 			for (j = 0; j < strlen(e); j++)
