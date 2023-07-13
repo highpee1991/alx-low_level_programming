@@ -16,7 +16,7 @@ int _strlen(char *s)
 		length++;
 		s++;
 	}
-	return (s);
+	return (length);
 }
 /**
  * _strncat - function to concatnate strings with n bytes
@@ -33,7 +33,7 @@ char *_strncat(char *dest, char *src, int n)
 
 	for (i = 0; i < n && src[i] != '\0'; i++)
 		dest[dest_len + i] = src[i];
-	dest[dest_len + 1] = '\0';
+	dest[dest_len + i] = '\0';
 	return (dest);
 }
 
