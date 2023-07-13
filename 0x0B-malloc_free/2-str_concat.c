@@ -16,7 +16,7 @@ int _strlen(char *s)
 		length++;
 		s++;
 	}
-	return (length);
+	return (s);
 }
 /**
  * _strncat - function to concatnate strings with n bytes
