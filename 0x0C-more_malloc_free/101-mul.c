@@ -36,6 +36,12 @@ int mul(int argc, char *argv[])
 		exit(98);
 	}
 
+	if (num1 < 0 || num2 < 0)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+
 	printf("%d\n", num1 * num2);
 
 	return (0);
