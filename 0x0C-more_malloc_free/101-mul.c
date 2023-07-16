@@ -29,7 +29,7 @@ int mul(int argc, char *argv[])
 	num1 = atoi(argv[1]);
 	num2 = atoi(argv[2]);
 
-	if (!isdigit((unsigned char)argv[1][0]) ||
+	if (!isdigit((unsigned char)argv[1][0]) &&
 	!isdigit((unsigned char)argv[2][0]))
 	{
 		printf("Error\n");
