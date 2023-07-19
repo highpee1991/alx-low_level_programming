@@ -8,7 +8,6 @@
  * @name: Name of the dog
  * @age: Age of the dog
  * @owner: Owner of the dog
- * 
  * Description: This function initializes the members of a dog structure
  * with the provided name, age, and owner.
  */
