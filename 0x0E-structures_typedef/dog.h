@@ -9,23 +9,16 @@
  * @name: Pointer to the name of the dog.
  * @owner: Pointer to the owner of the dog.
  * @age: Age of the dog.
- *
- * Description: This structure defines the attributes of a dog, including its
- * name, owner, and age.
+ * Description:
+ * This structure defines the attributes of
+ * a dog, including its name, owner, and age.
  */
-typedef struct
+typedef struct dog
 {
 	char *name;
 	float age;
 	char *owner;
 } dog_t;
-
-struct dog
-{
-	char *name;
-	float age;
-	char *owner;
-};
 int _putchar(char c);
 void init_dog(struct dog *d, char *name, float age, char *owner);
 void print_dog(struct dog *d);
