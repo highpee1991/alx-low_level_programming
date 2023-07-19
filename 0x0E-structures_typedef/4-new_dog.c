@@ -4,6 +4,22 @@
 #include "dog.h"
 
 /**
+ * _strlen - Calculates the length of a string.
+ * @str: The input string.
+ * Return: The length of the string (excluding the null terminator).
+ */
+int _strlen(char *str)
+{
+	int len = 0;
+
+	while (str[len] != '\0')
+	{
+		len++;
+	}
+	return (len);
+}
+
+/**
  * new_dog - Creates a new dog with given attributes.
  * @name: Pointer to the name of the dog.
  * @age: Age of the dog.
@@ -26,7 +42,7 @@ dog_t *new_dog(char *name, float age, char *owner)
 	if (dog == NULL)
 		return (NULL);
 
-	namelen = strlen(name);
+	namelen = _strlen(name);
 
 	dog->name = malloc(sizeof(char) * (namelen + 1));
 	if (dog->name == NULL)
@@ -38,7 +54,7 @@ dog_t *new_dog(char *name, float age, char *owner)
 	for (i = 0; i < namelen; i++)
 		dog->name[i] = name[i];
 
-	ownerlen = strlen(name);
+	ownerlen = _strlen(owner);
 
 	dog->owner = malloc(sizeof(char) * (ownerlen + 1));
 	if (dog->owner == NULL)
