@@ -12,11 +12,15 @@
  *
  * Description: This structure defines the attributes of a dog, including its
  * name, owner, and age.
+ *
  */
+/*void init_dog(struct dog *d, char *name, float age, char *owner);*/
 struct dog
 {
 	char *name;
 	char *owner;
 	float age;
 };
+int _putchar(char c);
+void init_dog(struct dog *d, char *name, float age, char *owner);
 #endif /* DOG_H */
