@@ -1,6 +1,8 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include "main.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 char *created_buffer(char *str_file);
 void closed_file(int file_d);
