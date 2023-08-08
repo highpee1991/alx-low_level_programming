@@ -112,7 +112,7 @@ void print_version(char *ptr)
 {
 	int versions = ptr[6];
 
-	printf("Version: %d", version);
+	printf("Version: %d", versions);
 
 	if (versions == EV_CURRENT)
 		printf(" (current)");
@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
 	}
 
 	lseek(fds, 0, SEEK_SET);
-	ret_reads = read(fd, ptr, 27);
+	ret_reads = read(fds, ptr, 27);
 
 	if (ret_reads == -1)
 	{
