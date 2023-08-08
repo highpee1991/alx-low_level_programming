@@ -1,101 +1,246 @@
-#include <fcntl.h>
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <elf.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <stdio.h>
-#include "main.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include <elf.h>
 
 /**
- * print_entry - ELF header entry point.
- * @e_entry: ELF entry point address.
- * @e_ident: ELF class pointer to array.
- */
-void print_entry(unsigned long int e_entry, unsigned char *e_ident)
+ * print_addr - address printer.
+ * @ptr: magic pointer.
+ * Return: return no value.
+*/
+void print_addr(char *ptr)
 {
-	printf(" Entry point address: ");
+	int j;
+	int begins;
+	char system;
 
-	if (e_ident[EI_DATA] == ELFDATA2MSB)
+	printf("Entry point address: 0x");
+
+	system = ptr[4] + '0';
+	if (system == '1')
 	{
-		e_entry = ((e_entry << 8) & 0xFF00FF00) |
-			  ((e_entry >> 8) & 0xFF00FF);
-		e_entry = (e_entry << 16) | (e_entry >> 16);
+		begins = 26;
+		printf("80");
+		for (j = begins; j >= 22; j--)
+		{
+			if (ptr[j] > 0)
+				printf("%x", ptr[j]);
+			else if (ptr[j] < 0)
+				printf("%x", 256 + ptr[j]);
+		}
+		if (ptr[7] == 6)
+			printf("00");
 	}
 
-	if (e_ident[EI_CLASS] == ELFCLASS32)
-		printf("%#x\n", (unsigned int)e_entry);
+	if (system == '2')
+	{
+		begins = 26;
+		for (j = begins; j > 23; j--)
+		{
+			if (ptr[j] >= 0)
+				printf("%02x", ptr[j]);
 
+			else if (ptr[j] < 0)
+				printf("%02x", 256 + ptr[j]);
+
+		}
+	}
+	printf("\n");
+}
+
+/**
+ * print_type - type print.
+ * @ptr: magic pointer.
+ * Return: return no value.
+*/
+void print_type(char *ptr)
+{
+	char types = ptr[16];
+
+	if (ptr[5] == 1)
+		types = ptr[16];
 	else
-		printf("%#lx\n", e_entry);
+		types = ptr[17];
+
+	printf("Type: ");
+	if (types == 0)
+		printf("NONE (No file type)\n");
+	else if (types == 1)
+		printf("REL (Relocatable file)\n");
+	else if (types == 2)
+		printf("EXEC (Executable file)\n");
+	else if (types == 3)
+		printf("DYN (Shared object file)\n");
+	else if (types == 4)
+		printf("CORE (Core file)\n");
+	else
+		printf("<unknown: %x>\n", types);
 }
 
 /**
- * close_elf - ELF file close.
- * @elf: ELF file descriptor.
- *
- * Description: file could not be closed - exit code 98.
- */
-void close_elf(int elf)
+ * print_osabi - osabi printer
+ * @ptr: magic pointer.
+ * Return: return no value.
+*/
+void print_osabi(char *ptr)
 {
-	if (close(elf) == -1)
-	{
-		dprintf(STDERR_FILENO,
-			"Error: Can't close fd %d\n", elf);
-		exit(98);
-	}
+	char osabis = ptr[7];
+
+	printf("OS/ABI: ");
+	if (osabis == 0)
+		printf("UNIX - System V\n");
+	else if (osabis == 2)
+		printf("UNIX - NetBSD\n");
+	else if (osabis == 6)
+		printf("UNIX - Solaris\n");
+	else
+		printf("<unknown: %x>\n", osabis);
+
+	printf("ABI Version: %d\n", ptr[8]);
+}
+
+
+/**
+ * print_version - version printer.
+ * @ptr: magic pointer.
+ * Return: return no value.
+*/
+void print_version(char *ptr)
+{
+	int versions = ptr[6];
+
+	printf("Version: %d", version);
+
+	if (versions == EV_CURRENT)
+		printf(" (current)");
+
+	printf("\n");
+}
+/**
+ * print_data - data printer.
+ * @ptr: magic pointer.
+ * Return: return no value.
+*/
+void print_data(char *ptr)
+{
+	char datas = ptr[5];
+
+	printf("Data: 2's complement");
+	if (datas == 1)
+		printf(", little endian\n");
+
+	if (datas == 2)
+		printf(", big endian\n");
+}
+/**
+ * print_magic - magic information printer.
+ * @ptr: magic pointer.
+ * Return: return no value.
+*/
+void print_magic(char *ptr)
+{
+	int bts;
+
+	printf("Magic: ");
+
+	for (bts = 0; bts < 16; bts++)
+		printf(" %02x", ptr[bts]);
+
+	printf("\n");
+
 }
 
 /**
- * main - information contained in the displayer.
- * ELF header at the start of an ELF file.
- * @argc: number of arguments supplied to the file.
- * @argv: arguments array pointer.
- *
- * Return: 0 on success.
- *
- * Description: If file is not an ELF File or
- * function fails - exit code 98.
- */
-int main(int __attribute__((__unused__)) argc, char *argv[])
+ * check_sys - system version checker.
+ * @ptr: magic pointer.
+ * Return: return no value.
+*/
+void check_sys(char *ptr)
 {
-	Elf64_Ehdr *header;
-	int o, r;
+	char system = ptr[4] + '0';
 
-	o = open(argv[1], O_RDONLY);
-	if (o == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
+	if (system == '0')
 		exit(98);
-	}
-	header = malloc(sizeof(Elf64_Ehdr));
-	if (header == NULL)
-	{
-		close_elf(o);
-		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
-		exit(98);
-	}
-	r = read(o, header, sizeof(Elf64_Ehdr));
-	if (r == -1)
-	{
-		free(header);
-		close_elf(o);
-		dprintf(STDERR_FILENO, "Error: `%s`: No such file\n", argv[1]);
-		exit(98);
-	}
 
-	check_elf(header->e_ident);
 	printf("ELF Header:\n");
-	print_magic(header->e_ident);
-	print_class(header->e_ident);
-	print_data(header->e_ident);
-	print_version(header->e_ident);
-	print_osabi(header->e_ident);
-	print_abi(header->e_ident);
-	print_type(header->e_type, header->e_ident);
-	print_entry(header->e_entry, header->e_ident);
+	print_magic(ptr);
 
-	free(header);
-	close_elf(o);
+	if (system == '1')
+		printf("Class: ELF32\n");
+
+	if (system == '2')
+		printf("Class: ELF64\n");
+
+	print_data(ptr);
+	print_version(ptr);
+	print_osabi(ptr);
+	print_type(ptr);
+	print_addr(ptr);
+}
+
+/**
+ * check_elf - check elf file is present.
+ * @ptr: magic pointer.
+ * Return: 1 if it is an elf file. else if 0.
+*/
+int check_elf(char *ptr)
+{
+	int address = (int)ptr[0];
+	char E = ptr[1];
+	char L = ptr[2];
+	char F = ptr[3];
+
+	if (address == 127 && E == 'E' && L == 'L' && F == 'F')
+		return (1);
+
+	return (0);
+}
+
+/**
+ * main - check ELf info.
+ * @argc: arguments number to check.
+ * @argv: arguments vectors.
+ * Return: Return 0 success.
+*/
+int main(int argc, char *argv[])
+{
+	int fds, ret_reads;
+	char ptr[27];
+
+	if (argc != 2)
+	{
+		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
+		exit(98);
+	}
+
+	fds = open(argv[1], O_RDONLY);
+
+	if (fds < 0)
+	{
+		dprintf(STDERR_FILENO, "Err: file can not be open\n");
+		exit(98);
+	}
+
+	lseek(fds, 0, SEEK_SET);
+	ret_reads = read(fd, ptr, 27);
+
+	if (ret_reads == -1)
+	{
+		dprintf(STDERR_FILENO, "Err: The file can not be read\n");
+		exit(98);
+	}
+
+	if (!check_elf(ptr))
+	{
+		dprintf(STDERR_FILENO, "Err: It is not an ELF\n");
+		exit(98);
+	}
+
+	check_sys(ptr);
+	close(fds);
+
 	return (0);
 }
